@@ -37,6 +37,7 @@ std::string Movie::displayString() const
 
 void Movie::dump(std::ostream& os) const
 {
+  // dump through required format
   os << "movie" << "\n" << name_ << "\n" << price_ << "\n" << qty_ << "\n" << genre_ << "\n" << rating_ << std::endl;
 }
 

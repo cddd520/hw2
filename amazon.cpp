@@ -94,6 +94,7 @@ int main(int argc, char* argv[])
             else if ( cmd == "ADD"){
               string userName;
               int num;
+              // check if the input is valid
               if (ss >> userName >> num)
               {
                 if (num >= 1 && num <= hits.size())
@@ -114,6 +115,7 @@ int main(int argc, char* argv[])
             }
             else if ( cmd == "VIEWCART")
             {
+              // check if the input is valid
               string userName;
               if (ss >> userName)
               {
@@ -126,6 +128,7 @@ int main(int argc, char* argv[])
             }
             else if ( cmd == "BUYCART" )
             {
+              // check if the input is valid
               string userName;
               if (ss >> userName)
               {

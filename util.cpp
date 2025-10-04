@@ -35,7 +35,11 @@ std::set<std::string> parseStringToWords(string rawWords)
             }
             tempStr = "";
         }
-
+    }
+    // the last word has to be put into the set
+    if (tempStr.length() >= 2)
+    {
+        tempSet.insert(convToLower(tempStr));
     }
     return tempSet;
 

@@ -19,8 +19,8 @@ std::set<std::string> Book::keywords() const
   std::set<std::string> nameSet = parseStringToWords(name_);
   keywordsSet = setUnion(keywordsSet, nameSet);
 
-  std::set<std::string> isbnSet = parseStringToWords(isbn_);
-  keywordsSet = setUnion(keywordsSet, isbnSet);
+  // add ISBN directly
+  keywordsSet.insert(convToLower(isbn_));
 
   std::set<std::string> authorSet = parseStringToWords(author_);
   keywordsSet = setUnion(keywordsSet, authorSet);
@@ -40,6 +40,7 @@ std::string Book::displayString() const
 
 void Book::dump(std::ostream& os) const
 {
+  // dump through required format
   os << "book" << "\n" << name_ << "\n" << price_ << "\n" << qty_ << "\n" << isbn_ << "\n" << author_ << std::endl;
 }
 

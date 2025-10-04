@@ -109,7 +109,8 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 
 void MyDataStore::dump(std::ostream& os)
 {
-  os << "<products" << std::endl;
+  // save to database through required format
+  os << "<products>" << std::endl;
   for (Product* p: products_)
   {
     p -> dump(os);
@@ -120,40 +121,61 @@ void MyDataStore::dump(std::ostream& os)
   while (it != users_.end())
   {
     it -> second -> dump(os);
+    it++;
   }
   os << "</users>" << std::endl;
 }
 
 void MyDataStore::addCart(std::string userName, Product* p)
 {
+  // check if the user is valid
+  if (users_.find(userName) == users_.end())
+  {
+    std::cout << "Invalid request" << std::endl;
+    return;
+  }
   carts_[userName].push_back(p);
 }
 
 void MyDataStore::viewCart(std::string userName)
 {
+  // check if the user is valid
+  if (users_.find(userName) == users_.end())
+  {
+    std::cout << "Invalid username" << std::endl;
+    return;
+  }
+  // check if the cart is empty
   if (carts_[userName].empty())
   {
     std::cout << "Cart is empty of this user :<" << std::endl;
+    return;
   }
+  // go though display logic
   std::deque<Product*> tempDe = carts_[userName];
   int countNum = 1;
   for (Product* p: tempDe)
   {
-    std::cout << "Item" << countNum << std::endl;
+    std::cout << "Item " << countNum << std::endl;
     std::cout << p -> displayString() << std::endl;
     countNum++;
   }
 
-
 }
 void MyDataStore::buyCart(std::string userName)
 {
+  // check if the user is valid
+  if (users_.find(userName) == users_.end())
+  {
+    std::cout << "Invalid username" << std::endl;
+    return;
+  }
   User* user = users_[userName];
   if (carts_[userName].empty())
   {
     return;
   }
-
+  // get user's cart and prepare a cart for unseccusflly bought items
   std::deque<Product*>& cart = carts_[userName];
   std::deque<Product*> restItem;
 
